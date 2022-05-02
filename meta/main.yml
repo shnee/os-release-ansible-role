@@ -2,6 +2,7 @@
 galaxy_info:
 
   author: shnee
+  role_name: os_release
   namespace: shnee
   description: Retrieves the contents of /etc/os-release
 
