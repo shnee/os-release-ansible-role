@@ -1,6 +1,6 @@
 ---
 - name: Retrieve and parse the contents of /etc/os-release
-  ansible.netcommon.cli_parse:
+  ansible.utils.cli_parse:
     command: cat /etc/os-release
     parser:
       name: ansible.netcommon.native

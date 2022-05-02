@@ -1,4 +1,10 @@
 ---
+
+# TODO Consider adding Makefile. The Makefile can add the color vars and
+# potentially have a single way of doing things for different CI pipelines. In
+# addition a Makefile could be used to script running this on N distros if we
+# get too many.
+
 dependency:
   name: galaxy
 driver:

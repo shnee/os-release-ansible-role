@@ -1,0 +1,39 @@
+---
+name: ci
+'on':
+  push:
+    #branches:
+    #  - master
+
+jobs:
+
+  test:
+    name: molecule
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3.
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install pypi dep.
+        run: pip3 install molecule molecule-docker docker yamllint ansible-lint
+
+      # The ansible.netcommon is needed for the native parser of cli_parse.
+      # TODO Add these to a requirements.yml
+      - name: Install ansible deps.
+        run: |
+          ansible-galaxy collection install \
+              ansible.utils \
+              ansible.netcommon \
+              community.docker
+
+      - name: Run molecule.
+        run: molecule test
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
