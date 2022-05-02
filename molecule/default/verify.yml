@@ -4,7 +4,14 @@
 - name: Verify
   hosts: all
   gather_facts: false
+  roles:
+    - shnee.os_release
   tasks:
   - name: Example assertion
+    debug:
+      var: os_release
+  - name: Verify that os-release match our expected values.
     assert:
-      that: true
+      that:
+        - os_release.ID == 'centos'
+        - os_release.ID_LIKE == 'rhel fedora'
