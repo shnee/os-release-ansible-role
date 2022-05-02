@@ -24,9 +24,9 @@
   tasks:
 
     - name: Is the OS in exp_vals?
-      assert:
+      ansible.builtin.assert:
         that: exp_vals[ansible_hostname] is defined
     - name: Verify that os-release matches our expected values.
-      assert:
+      ansible.builtin.assert:
         that: os_release[item.key] == item.value
       loop: "{{ exp_vals[ansible_hostname] | dict2items }}"

@@ -3,5 +3,5 @@
   hosts: all
   tasks:
     - name: "Include shnee.os_release"
-      include_role:
+      ansible.builtin.include_role:
         name: "shnee.os_release"

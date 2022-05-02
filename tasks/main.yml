@@ -7,4 +7,3 @@
       os: linux
       command: cat os-release
     set_fact: os_release
-
