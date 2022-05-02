@@ -4,8 +4,12 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: instance
+  - name: centos-8-stream
     image: quay.io/centos/centos:stream8
+    pre_build_image: true
+  - name: ubuntu
+    # TODO This is only a temporary measure until we get a better image.
+    image: tanquetav/ubuntu-ansible:latest
     pre_build_image: true
 provisioner:
   name: ansible

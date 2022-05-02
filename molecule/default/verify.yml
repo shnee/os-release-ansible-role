@@ -3,15 +3,30 @@
 
 - name: Verify
   hosts: all
-  gather_facts: false
+  vars:
+
+    # exp_vals is dict where each top-level field corresponds to the name of the
+    # of the platforms defined in molecule.yml. The key-value pairs under the
+    # top-level will be used to test against the values in os_release.
+    exp_vals:
+      ubuntu:
+        ID: ubuntu
+        ID_LIKE: debian
+        VERSION_ID: '19.04'
+      centos-8-stream:
+        ID: centos
+        ID_LIKE: rhel fedora
+        VERSION_ID: '8'
+
   roles:
     - shnee.os_release
+
   tasks:
-  - name: Example assertion
-    debug:
-      var: os_release
-  - name: Verify that os-release match our expected values.
-    assert:
-      that:
-        - os_release.ID == 'centos'
-        - os_release.ID_LIKE == 'rhel fedora'
+
+    - name: Is the OS in exp_vals?
+      assert:
+        that: exp_vals[ansible_hostname] is defined
+    - name: Verify that os-release matches our expected values.
+      assert:
+        that: os_release[item.key] == item.value
+      loop: "{{ exp_vals[ansible_hostname] | dict2items }}"
