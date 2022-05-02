@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include shnee.os_release"
+      include_role:
+        name: "shnee.os_release"
